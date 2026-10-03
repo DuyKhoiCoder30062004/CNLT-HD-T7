@@ -10,8 +10,9 @@ import lombok.Data;
 public class OrderDetail{
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private String id;
+    private Long id;
 
     @OneToOne
     @JoinColumn(name = "product_id", nullable= false)

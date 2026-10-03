@@ -11,8 +11,9 @@ import lombok.Data;
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private String id;
+    private Long id;
 
     @Column(name = "username",nullable= false, unique=true, length=50)
     private String username;
@@ -26,7 +27,7 @@ public class User {
     @Column( name = "password", nullable= false, length=255 )
     private String password;
 
-    @Column( name = "avatar", nullable= false, length=50 )
+    @Column( name = "avatar", nullable= true, length=50 )
     private String avatar;
 
     @Column( name = "role_id", columnDefinition="bit" )
@@ -46,14 +47,12 @@ public class User {
         String username,
         String email,
         String phone,
-        String password,
-        String avatar
+        String password
     ){
         this.username = username;
         this.email=email;
         this.phone=phone;
         this.password=password;
-        this.avatar=avatar;
         this.role=Role.USER;
         this.createdAt=LocalDateTime.now();
         this.updatedAt=LocalDateTime.now();

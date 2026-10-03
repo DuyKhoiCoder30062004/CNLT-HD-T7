@@ -23,7 +23,7 @@ public class JwtService {
 				.compact();
 	}
 
-	public String extractUsername(String token){
+	public String extractPhone(String token){
 		return Jwts.parser()
 				.verifyWith(getKey())
 				.build()

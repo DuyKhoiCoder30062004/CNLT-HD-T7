@@ -11,8 +11,9 @@ import lombok.Data;
 public class Order{
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private String id;
+    private Long id;
 
     @OneToOne
     @JoinColumn(name = "receiver_id", nullable= false)

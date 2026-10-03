@@ -11,8 +11,9 @@ import java.time.LocalDateTime;
 public class Receiver {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private String id;
+    private Long id;
 
     @Column(name = "fullname", nullable = false, length = 100)
     private String fullname;
