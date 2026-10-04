@@ -18,7 +18,7 @@ public enum OrderStatus {
             case 1 -> PACKING;
             case 2 -> SHIPPING;
             case 3 -> SUCCESSFUL;
-            case 4 -> CANCELD;
+            case 4 -> CANCELLED;
             default -> throw new IllegalArgumentException("Không tồn tại: " + value);
         };
     }
