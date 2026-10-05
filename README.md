@@ -1,3 +1,4 @@
+# Hạn chế commit theo tiếng anh, ông thầy tưởng AI bây giờ, soạn tiếng Việt, phải tận tụy vô
 # Feature: Authentication
 
 This feature provides user authentication and registration.
