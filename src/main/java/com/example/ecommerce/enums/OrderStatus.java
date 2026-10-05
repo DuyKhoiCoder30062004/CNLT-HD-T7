@@ -6,7 +6,7 @@ public enum OrderStatus {
 	PACKING("Đang đóng gói"),
 	SHIPPING("Đang vận chuyển"),
 	SUCCESSFUL("Thành công"),
-	CANCELD("Đã hủy"),
+	CANCELLED("Đã hủy"),
 	;
 
 	private final String description;
