@@ -1,4 +1,4 @@
-# Tính năng: Authentication (Xác thưc)
+# Tính năng: Authentication (Xác thực)
 
 Tính năng này cung cấp xác thực người dùng và đăng ký mới.
 
@@ -41,7 +41,9 @@ POST /api/auth/login
     "type": "Bearer"
 }
 ```
+**Test endpoint bằng Postman**
 
+![Màn hình Postman](./imgs/auth/login_postman.png)
 
 ---
 
@@ -87,6 +89,10 @@ POST /api/auth/register
 }
 ```
 
+**Test endpoint bằng Postman**
+
+![Màn hình Postman](./imgs/auth/register_postman.png)
+
 ---
 
 ## Lấy người dùng hiện tại
@@ -131,6 +137,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwOTg3NjU0MzIzIiwiaWF0IjoxN
     "type": "Bearer"
 }
 ```
+
+**Test endpoint bằng Postman**
+
+![Màn hình Postman](./imgs/auth/me_postman.png)
+
+
 ## Dependencies yêu cầu
 
 ### JWT
@@ -210,9 +222,11 @@ Chuỗi trên chứa các thông tin cần thiết trong trường hợp 
 ```text
 oKMuxiSDoyo4b7SteigYPWdmpGMmuxb0VvLND3Q3X2A
 ```
-Đây là phần khá quan trọng trong bảo mật để đảm bảo thông tin payload không bị thay đổi bởi người khác. Phần này lấy secret key từ tệp môi trường (env).
+Đây là phần khá quan trọng trong bảo mật để đảm bảo thông tin payload không bị thay đổi bởi người khác. Phần này lấy secret key từ tệp môi trường (env hoặc properties).
 
 # Screenshot khởi động tính năng Auth
-![Màn hình Termianl](/imgs/auth/cmd1.png)
-![](/imgs/auth/cmd2.png)
-![](/imgs/auth/cmd3.png)
+
+![Màn hình Termianl](./imgs/auth/cmd1.png)
+![](./imgs/auth/cmd2.png)
+![](./imgs/auth/cmd3.png)
+
