@@ -1,11 +1,10 @@
-# Hạn chế commit theo tiếng anh, ông thầy tưởng AI bây giờ, soạn tiếng Việt, phải tận tụy vô
-# Feature: Authentication
+# Tính năng: Authentication (Xác thưc)
 
-This feature provides user authentication and registration.
+Tính năng này cung cấp xác thực người dùng và đăng ký mới.
 
-## Login
+## Login (Đăng nhập)
 
-Authenticate a user using their phone number and password.
+Xác thực người dùng sử dụng số điện thoại và mật khẩu.
 
 **Endpoint**
 
@@ -46,9 +45,9 @@ POST /api/auth/login
 
 ---
 
-## Register
+## Register (Đăng ký)
 
-Create a new user account.
+Tạo người dùng mới.
 
 **Endpoint**
 
@@ -90,9 +89,9 @@ POST /api/auth/register
 
 ---
 
-## Get Current User
+## Lấy người dùng hiện tại
 
-Get information about the currently authenticated user.
+Lấy các thông tin người dùng hiện tại đang đăng nhập.
 
 **Endpoint**
 
@@ -106,7 +105,7 @@ GET /api/auth/me
 Authorization: Bearer <your-jwt-token>
 ```
 
-Example:
+Ví dụ:
 
 ```http
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwOTg3NjU0MzIzIiwiaWF0IjoxNzkxMjAxNzE2LCJleHAiOjE3OTEyODgxMTZ9.oKMuxiSDoyo4b7SteigYPWdmpGMmuxb0VvLND3Q3X2A
@@ -132,7 +131,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwOTg3NjU0MzIzIiwiaWF0IjoxN
     "type": "Bearer"
 }
 ```
-## Dependencies Required
+## Dependencies yêu cầu
 
 ### JWT
 
@@ -166,3 +165,54 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwOTg3NjU0MzIzIiwiaWF0IjoxN
     <artifactId>spring-boot-starter-security</artifactId>
 </dependency>
 ```
+
+## Ý nghĩa token
+
+Token gồm 3 phần HEADER.PAYLOAD.SIGNATURE được tách ra bởi dấu chấm
+Ví dụ:
+
+```json
+    "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwOTg3NjU0MzIzIiwiaWF0IjoxNzkxMjAxNzE2LCJleHAiOjE3OTEyODgxMTZ9.oKMuxiSDoyo4b7SteigYPWdmpGMmuxb0VvLND3Q3X2A",
+```
+
+**HEARDER**
+
+```text
+eyJhbGciOiJIUzI1NiJ9
+```
+
+Chuỗi trên cho server biết thuật toán nào đã được sử dụng. Trong trường hợp này dùng thuật toán HS256
+
+```json
+{
+  "alg": "HS256"
+}
+```
+
+**PAYLOAD**
+
+```text
+eyJzdWIiOiIwOTg3NjU0MzIzIiwiaWF0IjoxNzkxMjAxNzE2LCJleHAiOjE3OTEyODgxMTZ9
+```
+
+Chuỗi trên chứa các thông tin cần thiết trong trường hợp này là số điện thoại, thời điểm khởi tạo, thời điểm hết hạn (sau 24 giờ) như:
+
+```json
+{
+  "sub": "0987654323",
+  "iat": 1792388000,
+  "exp": 1792474400
+}
+```
+
+**SIGNATURE**
+
+```text
+oKMuxiSDoyo4b7SteigYPWdmpGMmuxb0VvLND3Q3X2A
+```
+Đây là phần khá quan trọng trong bảo mật để đảm bảo thông tin payload không bị thay đổi bởi người khác. Phần này lấy secret key từ tệp môi trường (env).
+
+# Screenshot khởi động tính năng Auth
+![Màn hình Termianl](./img/auth/cmd1.png)
+![](./img/auth/cmd2.png)
+![](./img/auth/cmd3.png)
