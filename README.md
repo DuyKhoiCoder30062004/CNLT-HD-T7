@@ -213,6 +213,6 @@ oKMuxiSDoyo4b7SteigYPWdmpGMmuxb0VvLND3Q3X2A
 Đây là phần khá quan trọng trong bảo mật để đảm bảo thông tin payload không bị thay đổi bởi người khác. Phần này lấy secret key từ tệp môi trường (env).
 
 # Screenshot khởi động tính năng Auth
-![Màn hình Termianl](./img/auth/cmd1.png)
-![](./img/auth/cmd2.png)
-![](./img/auth/cmd3.png)
+![Màn hình Termianl](/imgs/auth/cmd1.png)
+![](/imgs/auth/cmd2.png)
+![](/imgs/auth/cmd3.png)
