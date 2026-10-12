@@ -2,6 +2,7 @@ package dtos;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
@@ -93,7 +94,13 @@ public class ProductDTO {
         this.imagePaths = imagePaths;
     }
 
+    @NotNull(message="Số lượng đã bán không được null")
+    @Min(value = 0, message="Số lượng đã bán phải >= 0")
     private Integer soldQuantity;
+    @NotBlank(message="Tên danh mục không được để trống")
     private String categoryName;
+
+    @NotNull(message="Danh sách ảnh không được null")
+    @NotEmpty(message="Danh sách ảnh phải có ít nhất một phần tử")
     private List<String> imagePaths;
 }
