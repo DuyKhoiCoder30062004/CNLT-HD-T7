@@ -8,17 +8,17 @@ import java.util.List;
 
 public class ProductDTO {
     private Integer id;
-    @NotBlank
+    @NotBlank(message="Tên SP khong de trong'")
     private String name;
-    @NotNull
+    @NotNull(message="gia san pham = 0")
     @Min(0)
     private Integer price;
-    @NotBlank
+    @NotBlank(message="Mo ta SP khong de trong")
     private String description;
     @Min(0)
-    @NotBlank
+    @NotBlank(message="giam gia san pham ve 0%")
     private Integer discount;
-    @NotBlank
+    @NotNull(message="so luong ton` kho khong duoc trong")
     private Integer inventoryQuantity;
 
     public Integer getId() {
