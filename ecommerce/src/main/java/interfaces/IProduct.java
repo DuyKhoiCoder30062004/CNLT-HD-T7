@@ -3,7 +3,7 @@ package interfaces;
 import dtos.ProductDTO;
 import java.util.List;
 
-public interface ProductServiceInterface {
+public interface IProduct {
     List<ProductDTO> getAllProducts();
     ProductDTO getProductById(Integer id);
     ProductDTO createProduct(ProductDTO productDTO);

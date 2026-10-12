@@ -5,16 +5,16 @@ import entities.Product;
 
 import mappers.ProductMapper;
 import repositories.ProductRepository;
-import interfaces.ProductServiceInterface;
+import interfaces.IProduct;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class ProductServiceImpl implements ProductServiceInterface {
+public class ProductService implements IProduct {
     private final ProductRepository productRepository;
 
-    public ProductServiceImpl(ProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
 
