@@ -1,11 +1,10 @@
-package controller;
+package controllers;
 
-import dto.ProductDTO;
+import dtos.ProductDTO;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import service.ProductServiceImpl;
-import interfaces.ProductServiceInterface;
+import services.ProductServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
 

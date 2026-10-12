@@ -1,6 +1,6 @@
-package mapper;
-import dto.ProductDTO;
-import entity.Product;
+package mappers;
+import dtos.ProductDTO;
+import entities.Product;
 import java.util.stream.Collectors;
 
 public class ProductMapper {

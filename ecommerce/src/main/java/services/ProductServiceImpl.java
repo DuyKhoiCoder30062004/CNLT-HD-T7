@@ -1,10 +1,10 @@
-package service;
+package services;
 
-import dto.ProductDTO;
-import entity.Product;
+import dtos.ProductDTO;
+import entities.Product;
 
-import mapper.ProductMapper;
-import repository.ProductRepository;
+import mappers.ProductMapper;
+import repositories.ProductRepository;
 import interfaces.ProductServiceInterface;
 import org.springframework.stereotype.Service;
 import java.util.List;

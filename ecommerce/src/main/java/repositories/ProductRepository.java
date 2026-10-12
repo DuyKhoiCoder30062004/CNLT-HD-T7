@@ -1,7 +1,7 @@
-package repository;
+package repositories;
 
 
-import entity.Product;
+import entities.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 

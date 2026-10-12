@@ -1,6 +1,6 @@
 package interfaces;
 
-import dto.ProductDTO;
+import dtos.ProductDTO;
 import java.util.List;
 
 public interface ProductServiceInterface {
