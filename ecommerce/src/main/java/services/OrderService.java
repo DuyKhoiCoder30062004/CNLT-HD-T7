@@ -1,4 +1,11 @@
 package services;
-public class OrderService{
 
+import interfaces.IOrder;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+public class OrderService
+        implements IOrder {
 }
