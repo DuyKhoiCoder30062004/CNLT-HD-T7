@@ -1,4 +1,4 @@
-# Tính năng: Authentication (Xác thực)
+# 1. Tính năng: Authentication (Xác thực)
 
 Tính năng này cung cấp xác thực người dùng và đăng ký mới.
 
@@ -224,9 +224,27 @@ oKMuxiSDoyo4b7SteigYPWdmpGMmuxb0VvLND3Q3X2A
 ```
 Đây là phần khá quan trọng trong bảo mật để đảm bảo thông tin payload không bị thay đổi bởi người khác. Phần này lấy secret key từ tệp môi trường (env hoặc properties).
 
-# Screenshot khởi động tính năng Auth
+# 2. Screenshot khởi động tính năng Auth
 
 ![Màn hình Termianl](./imgs/auth/cmd1.png)
 ![](./imgs/auth/cmd2.png)
 ![](./imgs/auth/cmd3.png)
 
+
+# 3. Xử Lý Ngoại Lệ Toàn Cục (Global Exception Handling)
+
+Hệ thống sử dụng Global Exception Handler để bắt và chuẩn hóa toàn bộ phản hồi lỗi (Error Response) trả về cho phía Client. Dưới đây là kết quả thử nghiệm các trường hợp ngoại lệ trên Postman.
+
+## 3.1. Kiểm tra ngoại lệ khi đăng nhập sai thông tin (404 Not Found / 401 Unauthorized)
+* **Mô tả:** Hệ thống trả về lỗi khi người dùng nhập sai tài khoản hoặc mật khẩu không tồn tại.
+* **Hình ảnh minh họa:**
+
+![Kết quả Postman - Lỗi đăng nhập không tìm thấy tài khoản](./imgs/auth/exception_notfound.png)
+
+---
+
+## 3.2. Kiểm tra tính hợp lệ của dữ liệu đầu vào (400 Bad Request)
+* **Mô tả:** Hệ thống tự động bắt lỗi và trả về danh sách các trường dữ liệu không thỏa mãn điều kiện validation (ví dụ: để trống email, mật khẩu quá ngắn...).
+* **Hình ảnh minh họa:**
+
+![Kết quả Postman - Lỗi Validation dữ liệu đầu vào](./imgs/auth/exception_badrequest.png)
