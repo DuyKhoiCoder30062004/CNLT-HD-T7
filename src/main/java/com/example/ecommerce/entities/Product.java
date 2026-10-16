@@ -1,6 +1,5 @@
 package com.example.ecommerce.entities;
 
-import com.example.ecommerce.enums.Category;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -35,7 +34,8 @@ public class Product {
     @Column(name = "discount")
     private int discount;
 
-    @Column(name = "category", columnDefinition = "bit")
+    @OneToOne
+    @JoinColumn(name = "category_id", nullable= false)
     private Category category;
 
     @Column(name = "inventory_quantity", nullable = false)

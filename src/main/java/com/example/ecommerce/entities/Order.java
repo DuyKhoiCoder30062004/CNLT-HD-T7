@@ -1,6 +1,5 @@
 package com.example.ecommerce.entities;
 
-import com.example.ecommerce.enums.OrderStatus;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import lombok.Data;
@@ -23,8 +22,13 @@ public class Order{
     @JoinColumn(name = "user_id", nullable= false)
     private User user;
 
-    @Column(name = "status", columnDefinition = "bit")
-    private OrderStatus status;
+    @OneToOne
+    @JoinColumn(name = "order_status", nullable=false)
+    private OrderStatus orderStatus;
+
+    @OneToOne
+    @JoinColumn(name = "payment_status", nullable=false)
+    private PaymentStatus paymentStatus;
 
     @Column(name = "created_at", nullable= false)
     private LocalDateTime createdAt;
@@ -37,11 +41,14 @@ public class Order{
 
     public Order(
     	Receiver receiver,
-    	User user
+    	User user,
+        PaymentStatus paymentStatus,
+        OrderStatus orderStatus
     ){
     	this.receiver=receiver;
     	this.user=user;
-    	this.status=OrderStatus.PENDING;
+        this.paymentStatus=paymentStatus;
+        this.orderStatus=orderStatus;
     	this.createdAt=LocalDateTime.now();
     	this.updatedAt=LocalDateTime.now();
     }

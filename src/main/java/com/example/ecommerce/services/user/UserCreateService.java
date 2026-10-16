@@ -2,8 +2,10 @@ package com.example.ecommerce.services.user;
 
 import com.example.ecommerce.exception.ResourceNotFoundException;
 import com.example.ecommerce.entities.User;
+import com.example.ecommerce.entities.Role;
+import com.example.ecommerce.interfaces.role.IRoleQuery;
 import com.example.ecommerce.interfaces.user.IUserCreate;
-import com.example.ecommerce.repositories.user.UserRepository;
+import com.example.ecommerce.repositories.UserRepository;
 import com.example.ecommerce.dtos.auth.RegisterRequest;
 import org.springframework.stereotype.Service;
 
@@ -11,11 +13,14 @@ import org.springframework.stereotype.Service;
 public class UserCreateService implements IUserCreate {
 
     private final UserRepository userRepository;
+    private final IRoleQuery roleQueryService;
 
     public UserCreateService(
-        UserRepository userRepository
+        UserRepository userRepository,
+        IRoleQuery roleQueryService
     ){
         this.userRepository = userRepository;
+        this.roleQueryService = roleQueryService;
     }
 
     @Override
@@ -33,12 +38,14 @@ public class UserCreateService implements IUserCreate {
         }
 
         String hashedPassword = this.hashPassword(request.getPassword());
+        Role role = roleQueryService.findByUser();
 
         User user = new User(
             request.getUsername(),
             request.getEmail(),
             request.getPhone(),
-            hashedPassword
+            hashedPassword,
+            role
         );
         return userRepository.save(user);
     }

@@ -1,6 +1,5 @@
 package com.example.ecommerce.entities;
 
-import com.example.ecommerce.enums.Role;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import lombok.Data;
@@ -30,7 +29,8 @@ public class User {
     @Column( name = "avatar", nullable= true, length=50 )
     private String avatar;
 
-    @Column( name = "role_id", columnDefinition="bit" )
+    @OneToOne
+    @JoinColumn( name = "role_id", nullable=false )
     private Role role;
 
     @Column( name = "created_at", nullable= false )
@@ -47,13 +47,14 @@ public class User {
         String username,
         String email,
         String phone,
-        String password
+        String password,
+        Role role
     ){
         this.username = username;
         this.email=email;
         this.phone=phone;
         this.password=password;
-        this.role=Role.USER;
+        this.role=role;
         this.createdAt=LocalDateTime.now();
         this.updatedAt=LocalDateTime.now();
     }

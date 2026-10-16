@@ -3,7 +3,7 @@ package com.example.ecommerce.services.user;
 import com.example.ecommerce.exception.ResourceNotFoundException;
 import com.example.ecommerce.entities.User;
 import com.example.ecommerce.interfaces.user.IUserQuery;
-import com.example.ecommerce.repositories.user.UserRepository;
+import com.example.ecommerce.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
