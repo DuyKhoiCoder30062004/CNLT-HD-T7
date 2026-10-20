@@ -20,6 +20,7 @@ public class OrderStatus{
     @Column(name = "description",  nullable=false)
     private String description;
 
+    public OrderStatus(){}
     public OrderStatus(
     	String name,
     	String description

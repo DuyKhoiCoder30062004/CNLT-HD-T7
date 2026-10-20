@@ -2,6 +2,10 @@
 
 Tính năng này cung cấp xác thực người dùng và đăng ký mới.
 
+* File cấu hình được lưu tại thư mục:
+ `/docs/ccnlthd - auth service.postman_collection.json`
+
+
 ## Login (Đăng nhập)
 
 Xác thực người dùng sử dụng số điện thoại và mật khẩu.

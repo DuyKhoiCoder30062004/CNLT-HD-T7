@@ -19,7 +19,8 @@ public class PaymentStatus{
 
     @Column(name = "description",  nullable=false)
     private String description;
-
+    
+    public PaymentStatus(){}
     public PaymentStatus(
     	String name,
     	String description

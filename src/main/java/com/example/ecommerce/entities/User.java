@@ -29,7 +29,7 @@ public class User {
     @Column( name = "avatar", nullable= true, length=50 )
     private String avatar;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn( name = "role_id", nullable=false )
     private Role role;
 

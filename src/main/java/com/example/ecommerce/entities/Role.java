@@ -19,7 +19,8 @@ public class Role{
 
     @Column(name = "description",  nullable=false)
     private String description;
-
+    
+    public Role(){}
     public Role(
     	String name,
     	String description

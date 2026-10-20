@@ -35,15 +35,4 @@ public class GlobalExceptionHandler {
         
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
-
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<Map<String, String>> handleGlobalException(
-            Exception ex
-    ) {
-        Map<String, String> error = new HashMap<>();
-        error.put("error", "Internal Server Error");
-        error.put("message", "Đã có lỗi hệ thống xảy ra. Vui lòng thử lại sau!");
-           
-        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
 }

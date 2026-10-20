@@ -39,6 +39,7 @@ public class Order{
     @Column(name = "deleted_at", nullable= true)
     private LocalDateTime deletedAt;
 
+    public Order(){}
     public Order(
     	Receiver receiver,
     	User user,

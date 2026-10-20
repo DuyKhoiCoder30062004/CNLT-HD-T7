@@ -53,8 +53,7 @@ public class Product {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    public Product() {
-    }
+    public Product() {}
 
     public Product(
         String name,

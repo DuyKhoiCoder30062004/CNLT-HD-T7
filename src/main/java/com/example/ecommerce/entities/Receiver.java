@@ -39,9 +39,7 @@ public class Receiver {
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
 
-    public Receiver() {
-    }
-
+    public Receiver() {}
     public Receiver(
         String fullname,
         String phone,

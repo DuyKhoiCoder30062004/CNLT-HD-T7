@@ -25,6 +25,7 @@ public class OrderDetail{
     @Column(name="quantity", nullable=false)
     private int quantity;
 
+    public OrderDetail(){}
     public OrderDetail(
     	Product product,
     	Order order,

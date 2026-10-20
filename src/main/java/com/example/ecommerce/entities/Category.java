@@ -19,7 +19,8 @@ public class Category{
 
     @Column(name = "description",  nullable=false)
     private String description;
-
+    
+    public Category(){}
     public Category(
     	String name,
     	String description

@@ -22,7 +22,8 @@ public class Image{
 
     @Column(name = "alt", nullable= false, length=50)
     private String alt;
-
+    
+    public Image(){}
     public Image(
     	Product product,
     	String path,
