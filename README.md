@@ -232,7 +232,12 @@ oKMuxiSDoyo4b7SteigYPWdmpGMmuxb0VvLND3Q3X2A
 
 ![Màn hình Termianl](./imgs/auth/cmd1.png)
 ![](./imgs/auth/cmd2.png)
-![](./imgs/auth/cmd3.png)
+![](./imgs/auth/cmd4.png)
+![](./imgs/auth/cmd5.png)
+![](./imgs/auth/cmd6.png)
+![](./imgs/auth/cmd7.png)
+![](./imgs/auth/cmd8.png)
+![](./imgs/auth/cmd9.png)
 
 
 # 3. Xử Lý Ngoại Lệ Toàn Cục (Global Exception Handling)
