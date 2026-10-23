@@ -1,5 +1,7 @@
 package com.example.ecommerce.services.auth;
 
+import com.example.ecommerce.exception.ResourceNotFoundException;
+import com.example.ecommerce.mappers.AuthMapper;
 import com.example.ecommerce.security.JwtService;
 import com.example.ecommerce.dtos.auth.LoginRequest;
 import com.example.ecommerce.dtos.auth.LoginResponse;
@@ -17,26 +19,29 @@ public class AuthService implements IAuth{
 	private final IUserQuery userQueryService;
 	private final IUserCreate userCreateService;
 	private final JwtService jwtService;
+	private final AuthMapper authMapper;
 
 	public AuthService(
 		IUserQuery userQueryService,
 		IUserCreate userCreateService,
-		JwtService jwtService
+		JwtService jwtService,
+		AuthMapper authMapper
 	){
 		this.userQueryService=userQueryService;
 		this.userCreateService = userCreateService;
 		this.jwtService = jwtService;
+		this.authMapper= authMapper;
 	}
 
 	@Override
 	public LoginResponse register(RegisterRequest request){
 
 		if(userQueryService.existsByUsername(request.getUsername())){
-			throw new RuntimeException("Tên tài khoản đã tồn tại. Vui lòng thử tên khác");
+			throw new ResourceNotFoundException("Tên tài khoản đã tồn tại. Vui lòng thử tên khác");
 		}
 
 		if(userQueryService.existsByEmail(request.getEmail())){
-			throw new RuntimeException("Email đã tồn tại. Vui lòng thử email khác");
+			throw new ResourceNotFoundException("Email đã tồn tại. Vui lòng thử email khác");
 		}
 
 		User user = userCreateService.create(request);
@@ -54,23 +59,19 @@ public class AuthService implements IAuth{
 
 		boolean isPassword = encoder.matches(request.getPassword(), user.getPassword());
 		if(!isPassword){
-			throw new RuntimeException("Tên tài khoản hoặc mật khẩu không chính xác");
+			throw new ResourceNotFoundException("Tên tài khoản hoặc mật khẩu không chính xác");
 		}
 		String token = jwtService.generateToken(request.getPhone());
-		return new LoginResponse(
-			token,
-			user
-		);
+		LoginResponse response = authMapper.toLoginResponse(token, user);
+		return response;
 	}
 
 	@Override
 	public LoginResponse me(String token){
 		String phone = SecurityContextHolder.getContext().getAuthentication().getName();
 	    User user = userQueryService.findByPhone(phone);
-		return new LoginResponse(
-			token,
-			user
-		);
+		LoginResponse response = authMapper.toLoginResponse(token, user);
+		return response;
 	}
 
 }

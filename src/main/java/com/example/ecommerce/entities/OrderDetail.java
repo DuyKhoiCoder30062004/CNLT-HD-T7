@@ -1,37 +1,49 @@
 package com.example.ecommerce.entities;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "order_details")
-@Data
-public class OrderDetail{
+@Getter
+@Setter
+@NoArgsConstructor
+public class OrderDetail {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+    private Integer id;
 
-    @OneToOne
-    @JoinColumn(name = "product_id", nullable= false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
     private Product product;
 
-    @OneToOne
-    @JoinColumn(name = "order_id", nullable= false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")
     private Order order;
 
-    @Column(name="quantity", nullable=false)
-    private int quantity;
+    @Column(precision = 12, scale = 2)
+    private BigDecimal price;
 
+    private Integer quantity;
+
+    @Column(name = "total_price", precision = 12, scale = 2)
+    private BigDecimal totalPrice;
+    
     public OrderDetail(
-    	Product product,
-    	Order order,
-        int quantity
-    ){
-    	this.product=product;
-    	this.order=order;
-        this.quantity=quantity;
+            Product product,
+            Order order,
+            BigDecimal price,
+            Integer quantity,
+            BigDecimal totalPrice
+    ) {
+        this.product = product;
+        this.order = order;
+        this.price = price;
+        this.quantity = quantity;
+        this.totalPrice = totalPrice;
     }
 }
