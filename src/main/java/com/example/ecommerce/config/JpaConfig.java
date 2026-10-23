@@ -19,9 +19,8 @@ public class JpaConfig {
     CommandLineRunner initRoles(RoleRepository roleRepository) {
         return args -> {
             String[][] roles = {
-                {"ADMIN", "Quản tị viên toàn quyền"},
+                {"ADMIN", "Quản tị viên hệ thống"},
                 {"USER", "Người dùng thông thường"},
-                {"STAFF", "Nhân viên hệ thống"}
             };
 
             for (String[] roleData : roles) {
@@ -87,7 +86,7 @@ public class JpaConfig {
 	CommandLineRunner initPaymentStatuses(PaymentStatusRepository paymentStatusRepository) {
     return args -> {
         String[][] datas = {
-                {"SUCCESSFULLY", "Thanh toán đơn thành công"},
+                {"SUCCESSFULLY", "Thanh toán thành công"},
                 {"FAILED", "Thanh toán đơn thất bại"},
             };
 
