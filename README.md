@@ -331,7 +331,7 @@ Lưu trữ thông tin chi tiết của các sản phẩm được kinh doanh.
 | `name` | VARCHAR(255) | | Tên sản phẩm |
 | `price` | INTEGER | | Giá gốc của sản phẩm, đơn vị VND |
 | `thumbnail` | VARCHAR(500) | | Đường dẫn ảnh đại diện |
-| `weight` | INTEGER | | Khối lượng sản phẩm, theo đơn vị quy ước của hệ thống |
+| `weight` | INTEGER | | Khối lượng sản phẩm (gram) |
 | `description` | TEXT | | Mô tả chi tiết sản phẩm |
 | `discount` | INTEGER | | Phần trăm giảm giá |
 | `total_price` | INTEGER | | Giá bán sau khi giảm |
@@ -414,7 +414,7 @@ Lưu trữ thông tin tổng quan của đơn hàng do người dùng tạo.
 | `id` | INTEGER | PK, Identity | Mã đơn hàng |
 | `receiver_id` | INTEGER | FK | Mã người nhận, tham chiếu `receivers.id` |
 | `user_id` | INTEGER | FK | Mã người đặt hàng, tham chiếu `users.id` |
-| `price` | NUMERIC(12,2) | | Giá trị tiền hàng theo quy ước của hệ thống |
+| `price` | NUMERIC(12,2) | | Giá trị tiền hàng (vnđ) |
 | `total_price` | NUMERIC(12,2) | | Tổng tiền đơn hàng |
 | `status_id` | INTEGER | FK | Trạng thái đơn hàng, tham chiếu `statuses.id` |
 | `payment_id` | INTEGER | FK, UNIQUE | Mã thanh toán, tham chiếu `payments.id` |
