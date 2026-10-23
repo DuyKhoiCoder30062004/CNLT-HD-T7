@@ -42,8 +42,8 @@ public class UserCreateService implements IUserCreate {
 
         User user = new User(
             request.getUsername(),
-            request.getEmail(),
             request.getPhone(),
+            request.getEmail(),
             hashedPassword,
             role
         );
