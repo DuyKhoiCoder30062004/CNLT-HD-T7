@@ -1,4 +1,4 @@
-package com.example.ecommerce.controllers.auth;
+package com.example.ecommerce.controllers;
 
 import com.example.ecommerce.dtos.auth.LoginRequest;
 import com.example.ecommerce.dtos.auth.LoginResponse;

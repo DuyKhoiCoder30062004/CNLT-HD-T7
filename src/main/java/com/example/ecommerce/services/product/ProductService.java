@@ -1,11 +1,10 @@
-package services;
+package com.example.ecommerce.services.product;
 
-import dtos.ProductDTO;
-import entities.Product;
-
-import mappers.ProductMapper;
-import repositories.ProductRepository;
-import interfaces.IProduct;
+import com.example.ecommerce.dtos.product.ProductDTO;
+import com.example.ecommerce.entities.Product;
+import com.example.ecommerce.mappers.ProductMapper;
+import com.example.ecommerce.repositories.ProductRepository;
+import com.example.ecommerce.interfaces.product.IProduct;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;

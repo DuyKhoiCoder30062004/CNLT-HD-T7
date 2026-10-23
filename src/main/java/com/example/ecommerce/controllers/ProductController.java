@@ -1,21 +1,21 @@
-package controllers;
+package com.example.ecommerce.controllers;
 
-import dtos.ProductDTO;
+import com.example.ecommerce.dtos.product.ProductDTO;
+import com.example.ecommerce.interfaces.product.IProduct;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import services.ProductService;
 import org.springframework.web.bind.annotation.*;
-
+import jakarta.validation.Valid;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/products")
 public class ProductController {
-    private final ProductService productService;
+    private final IProduct productService;
 
-    public ProductController(ProductService productService) {
+    public ProductController(IProduct productService) {
         this.productService = productService;
     }
 
@@ -30,12 +30,17 @@ public class ProductController {
     }
 
     @PostMapping
-    public ProductDTO createProduct(@RequestBody ProductDTO productDTO) {
+    public ProductDTO createProduct(
+        @Valid
+        @RequestBody ProductDTO productDTO) {
         return productService.createProduct(productDTO);
     }
 
     @PutMapping("/{id}")
-    public ProductDTO updateProduct(@PathVariable Integer id, @RequestBody ProductDTO productDTO) {
+    public ProductDTO updateProduct(
+        @PathVariable Integer id,
+        @Valid
+        @RequestBody ProductDTO productDTO) {
         return productService.updateProduct(id, productDTO);
     }
 

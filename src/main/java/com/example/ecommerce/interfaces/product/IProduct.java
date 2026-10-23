@@ -1,6 +1,6 @@
-package interfaces;
+package com.example.ecommerce.interfaces.product;
 
-import dtos.ProductDTO;
+import com.example.ecommerce.dtos.product.ProductDTO;
 import java.util.List;
 
 public interface IProduct {
