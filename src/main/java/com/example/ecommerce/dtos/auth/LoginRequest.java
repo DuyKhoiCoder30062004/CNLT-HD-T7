@@ -3,7 +3,9 @@ package com.example.ecommerce.dtos.auth;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import jakarta.validation.constraints.Pattern;
+import lombok.Data;
 
+@Data
 public class LoginRequest {
 
     @NotBlank(message="Số điện thoại không được để trống")
@@ -22,11 +24,4 @@ public class LoginRequest {
         this.phone=phone;
         this.password=password;
     }
-    
-    public String getPhone() {return phone;}
-    public void setPhone(String phone) {this.phone = phone;}
-
-    public String getPassword() {return password;}
-    public void setPassword(String password) {this.password = password;}
-
 }

@@ -1,0 +1,142 @@
+// dbdiagram.io
+
+Table Image{
+  id int [primary key]
+  productId int
+  path varchar
+  alt nvarchar
+}
+
+Table Role {
+  id int [pk]
+  name nvarchar
+  description text
+}
+
+Table Product{
+  id int [primary key]
+  name nvarchar
+  price int
+  thumbnail varchar
+  weight int
+  description text
+  discount int
+  totalPrice int
+  categoryId int
+  inventoryQuantity int
+  soldQuantity int
+  createdAt datetime
+  deletedAt datetime
+  editedAt datetime
+  isdeleted bool
+}
+
+Table User{
+  id int [primary key]
+  username nvarchar
+  phone varchar
+  email varchar
+  password varchar
+  avatar varchar
+  roleId int
+  createdAt datetime
+  deletedAt datetime
+  editedAt datetime
+}
+
+Table Category {
+  id int [pk]
+  name nvarchar
+  description text
+}
+
+Table PaymentStatus {
+  id int [pk]
+  name nvarchar
+  description text
+}
+
+
+Table Receiver {
+  id int [pk]
+  fullname nvarchar
+  phone varchar
+  wardId int
+  createdAt datetime
+  deletedAt datetime
+  editedAt datetime
+}
+
+
+Table Ward {
+  id int [pk]
+  name nvarchar
+  provinceId int
+}
+
+Table Province {
+  id int [pk]
+  name nvarchar
+}
+
+Table Order{
+  id int [primary key]
+  receiverId int
+  userId int
+  price float
+  totalPrice float
+  statusId int
+  paymentId int
+  createdAt datetime
+  deletedAt datetime
+  editedAt datetime
+}
+
+
+Table OrderDetail{
+  id int [primary key]
+  productId int
+  orderId int
+  price float
+  quantity int
+  totalPrice float
+}
+
+Table Status {
+  id int [pk]
+  name nvarchar
+  description text
+}
+
+Table Payment {
+  id int [pk]
+  paymentStatusId int
+  method nvarchar
+  amount int
+  transactionId varchar
+  createdAt datetime
+}
+Ref: "Receiver"."id" < "Order"."receiverId"
+
+Ref: "Order"."id" < "OrderDetail"."orderId"
+
+Ref: "Product"."id" < "OrderDetail"."productId"
+
+Ref: "Product"."id" < "Image"."productId"
+
+Ref: "User"."id" < "Order"."userId"
+
+Ref: "Role"."id" ?<? "User"."roleId"
+
+Ref: "Category"."id" ?<? "Product"."categoryId"
+
+Ref: "Ward"."id" ?<? "Receiver"."wardId"
+
+Ref: "Province"."id" < "Ward"."provinceId"
+
+Ref: "Status"."id" ?<? "Order"."statusId"
+
+
+Ref: "Payment"."id" ?-? "Order"."paymentId"
+
+Ref: "PaymentStatus"."id" ?<? "Payment"."paymentStatusId"

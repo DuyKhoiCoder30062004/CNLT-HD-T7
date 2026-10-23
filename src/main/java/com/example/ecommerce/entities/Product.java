@@ -1,70 +1,78 @@
 package com.example.ecommerce.entities;
 
-import com.example.ecommerce.enums.Category;
 import jakarta.persistence.*;
-import lombok.Data;
-
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "products")
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+    private Integer id;
 
-    @Column(name = "name", nullable = false, unique=true, length = 255)
+    @Column(length = 255)
     private String name;
 
-    @Column(name = "price", nullable = false)
-    private int price;
+    private Integer price;
 
-    @Column(name = "thumbnail")
+    @Column(length = 500)
     private String thumbnail;
 
-    // gram
-    @Column(name = "weight")
-    private int weight;
+    private Integer weight;
 
-    @Column(name = "description", columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "discount")
-    private int discount;
+    private Integer discount;
 
-    @Column(name = "category", columnDefinition = "bit")
+    @Column(name = "total_price")
+    private Integer totalPrice;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
     private Category category;
 
-    @Column(name = "inventory_quantity", nullable = false)
-    private int inventoryQuantity;
+    @Column(name = "inventory_quantity")
+    private Integer inventoryQuantity;
 
-    @Column(name = "sold_quantity", nullable = false)
-    private int soldQuantity;
+    @Column(name = "sold_quantity")
+    private Integer soldQuantity;
 
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
 
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+    @Column(name = "edited_at")
+    private LocalDateTime editedAt;
 
-    public Product() {
-    }
+    @Column(name = "is_deleted")
+    private Boolean isDeleted = false;
+
+    @OneToMany(mappedBy = "product")
+    private List<Image> images = new ArrayList<>();
 
     public Product(
         String name,
-        int price,
+        Integer price,
         String thumbnail,
-        int weight,
+        Integer weight,
         String description,
-        int discount,
+        Integer discount,
+        Integer totalPrice,
         Category category,
-        int inventoryQuantity
+        Integer inventoryQuantity,
+        Integer soldQuantity
     ) {
         this.name = name;
         this.price = price;
@@ -72,11 +80,10 @@ public class Product {
         this.weight = weight;
         this.description = description;
         this.discount = discount;
+        this.totalPrice = totalPrice;
         this.category = category;
         this.inventoryQuantity = inventoryQuantity;
-        this.soldQuantity = 0;
-        this.discount = 0;
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
+        this.soldQuantity = soldQuantity;
+        this.isDeleted = false;
     }
 }

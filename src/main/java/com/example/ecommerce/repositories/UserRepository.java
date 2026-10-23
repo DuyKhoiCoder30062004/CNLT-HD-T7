@@ -1,4 +1,4 @@
-package com.example.ecommerce.repositories.user;
+package com.example.ecommerce.repositories;
 
 import com.example.ecommerce.dtos.auth.RegisterRequest;
 import com.example.ecommerce.entities.User;
