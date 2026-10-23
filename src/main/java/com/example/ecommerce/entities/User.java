@@ -1,62 +1,61 @@
 package com.example.ecommerce.entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import java.time.LocalDateTime;
-import lombok.Data;
 
 @Entity
 @Table(name = "users")
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+    private Integer id;
 
-    @Column(name = "username",nullable= false, unique=true, length=50)
+    @Column(length = 100)
     private String username;
 
-    @Column( name = "email", nullable= false, unique=true,length=50)
-    private String email;
-
-    @Column( name = "phone",nullable= false, unique=true, length=10)
+    @Column(length = 20)
     private String phone;
 
-    @Column( name = "password", nullable= false, length=255 )
+    @Column(length = 255)
+    private String email;
+
+    @Column(length = 255)
     private String password;
 
-    @Column( name = "avatar", nullable= true, length=50 )
+    @Column(length = 500)
     private String avatar;
 
-    @ManyToOne
-    @JoinColumn( name = "role_id", nullable=false )
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "role_id")
     private Role role;
 
-    @Column( name = "created_at", nullable= false )
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @Column( name = "updated_at", nullable= false )
-    private LocalDateTime updatedAt;
-
-    @Column( name = "deleted_at" )
+    @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
 
-    public User(){}
-    public User(
-        String username,
-        String email,
-        String phone,
-        String password,
-        Role role
-    ){
-        this.username = username;
-        this.email=email;
-        this.phone=phone;
-        this.password=password;
-        this.role=role;
-        this.createdAt=LocalDateTime.now();
-        this.updatedAt=LocalDateTime.now();
-    }
+    @Column(name = "edited_at")
+    private LocalDateTime editedAt;
 
+    public User(
+            String username,
+            String phone,
+            String email,
+            String password,
+            Role role
+    ) {
+        this.username = username;
+        this.phone = phone;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
 }

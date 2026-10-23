@@ -1,31 +1,29 @@
 package com.example.ecommerce.entities;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "roles")
-@Data
-public class Role{
+@Getter
+@Setter
+@NoArgsConstructor
+public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+    private Integer id;
 
-    @Column(name = "name",  nullable=false)
+    @Column(length = 100)
     private String name;
 
-    @Column(name = "description",  nullable=false)
+    @Column(columnDefinition = "TEXT")
     private String description;
     
-    public Role(){}
-    public Role(
-    	String name,
-    	String description
-    ){
-    	this.name=name;
-    	this.description=description;
+    public Role(String name, String description) {
+        this.name = name;
+        this.description = description;
     }
 }

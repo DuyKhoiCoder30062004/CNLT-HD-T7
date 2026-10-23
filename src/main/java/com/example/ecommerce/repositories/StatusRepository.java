@@ -1,11 +1,11 @@
 package com.example.ecommerce.repositories;
 
-import com.example.ecommerce.entities.OrderStatus;
+import com.example.ecommerce.entities.Status;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 @Repository
-public interface OrderStatusRepository extends JpaRepository<OrderStatus, String> {
+public interface StatusRepository extends JpaRepository<Status, String> {
 	boolean existsByName(String name);
 
 }

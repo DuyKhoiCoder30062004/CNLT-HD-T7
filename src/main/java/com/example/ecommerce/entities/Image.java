@@ -1,36 +1,34 @@
 package com.example.ecommerce.entities;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "images")
-@Data
-public class Image{
+@Getter
+@Setter
+@NoArgsConstructor
+public class Image {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+    private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id", nullable= false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
     private Product product;
 
-    @Column(name = "path",nullable= false)
+    @Column(length = 500)
     private String path;
 
-    @Column(name = "alt", nullable= false, length=50)
+    @Column(length = 255)
     private String alt;
-    
-    public Image(){}
-    public Image(
-    	Product product,
-    	String path,
-    	String alt
-    ){
-    	this.product=product;
-    	this.path=path;
-    	this.alt=alt;
+
+    public Image(Product product, String path, String alt) {
+        this.product = product;
+        this.path = path;
+        this.alt = alt;
     }
 }

@@ -1,56 +1,67 @@
 package com.example.ecommerce.entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import lombok.Data;
 
 @Entity
 @Table(name = "orders")
-@Data
-public class Order{
+@Getter
+@Setter
+@NoArgsConstructor
+public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+    private Integer id;
 
-    @OneToOne
-    @JoinColumn(name = "receiver_id", nullable= false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "receiver_id")
     private Receiver receiver;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable= false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToOne
-    @JoinColumn(name = "order_status", nullable=false)
-    private OrderStatus orderStatus;
+    @Column(precision = 12, scale = 2)
+    private BigDecimal price;
 
-    @OneToOne
-    @JoinColumn(name = "payment_status", nullable=false)
-    private PaymentStatus paymentStatus;
+    @Column(name = "total_price", precision = 12, scale = 2)
+    private BigDecimal totalPrice;
 
-    @Column(name = "created_at", nullable= false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "status_id")
+    private Status status;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "payment_id", unique = true)
+    private Payment payment;
+
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at", nullable= false)
-    private LocalDateTime updatedAt;
-
-    @Column(name = "deleted_at", nullable= true)
+    @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
 
-    public Order(){}
+    @Column(name = "edited_at")
+    private LocalDateTime editedAt;
+
     public Order(
-    	Receiver receiver,
-    	User user,
-        PaymentStatus paymentStatus,
-        OrderStatus orderStatus
-    ){
-    	this.receiver=receiver;
-    	this.user=user;
-        this.paymentStatus=paymentStatus;
-        this.orderStatus=orderStatus;
-    	this.createdAt=LocalDateTime.now();
-    	this.updatedAt=LocalDateTime.now();
+            Receiver receiver,
+            User user,
+            BigDecimal price,
+            BigDecimal totalPrice,
+            Status status,
+            Payment payment
+    ) {
+        this.receiver = receiver;
+        this.user = user;
+        this.price = price;
+        this.totalPrice = totalPrice;
+        this.status = status;
+        this.payment = payment;
     }
 }

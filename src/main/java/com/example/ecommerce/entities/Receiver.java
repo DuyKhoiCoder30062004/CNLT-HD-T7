@@ -1,58 +1,44 @@
 package com.example.ecommerce.entities;
 
 import jakarta.persistence.*;
-import lombok.Data;
-
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "receivers")
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class Receiver {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+    private Integer id;
 
-    @Column(name = "fullname", nullable = false, length = 100)
+    @Column(length = 255)
     private String fullname;
 
-    @Column(name = "phone", nullable = false, length = 10)
+    @Column(length = 20)
     private String phone;
 
-    @Column(name = "hamlet", nullable = false)
-    private String hamlet;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ward_id")
+    private Ward ward;
 
-    @Column(name = "ward", nullable = false)
-    private String ward;
-
-    @Column(name = "province", nullable = false)
-    private String province;
-
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
-
-    @Column(name = "updated_at", nullable = false)
-    private LocalDateTime updatedAt;
 
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
 
-    public Receiver() {}
-    public Receiver(
-        String fullname,
-        String phone,
-        String hamlet,
-        String ward,
-        String province     
-    ) {
+    @Column(name = "edited_at")
+    private LocalDateTime editedAt;
+
+    public Receiver(String fullname, String phone, Ward ward) {
         this.fullname = fullname;
         this.phone = phone;
-        this.hamlet = hamlet;
         this.ward = ward;
-        this.province = province;
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
     }
 }
