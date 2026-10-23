@@ -115,6 +115,13 @@
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-database-postgresql</artifactId>
         </dependency>
+        
+        <!-- cổng thanh toán trực tuyến -->
+        <dependency>
+            <groupId>com.stripe</groupId>
+            <artifactId>stripe-java</artifactId>
+            <version>25.6.0</version>
+        </dependency>
     </dependencies>
 
     <build>
