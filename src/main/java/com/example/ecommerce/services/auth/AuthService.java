@@ -1,6 +1,7 @@
 package com.example.ecommerce.services.auth;
 
-import com.example.ecommerce.exception.ResourceNotFoundException;
+import com.example.ecommerce.exception.DuplicateResourceException;
+import com.example.ecommerce.exception.InvalidCredentialsException;
 import com.example.ecommerce.mappers.AuthMapper;
 import com.example.ecommerce.security.JwtService;
 import com.example.ecommerce.dtos.auth.LoginRequest;
@@ -37,11 +38,11 @@ public class AuthService implements IAuth{
 	public LoginResponse register(RegisterRequest request){
 
 		if(userQueryService.existsByUsername(request.getUsername())){
-			throw new ResourceNotFoundException("Tên tài khoản đã tồn tại. Vui lòng thử tên khác");
+			throw new DuplicateResourceException("Tên tài khoản đã tồn tại. Vui lòng thử tên khác");
 		}
 
 		if(userQueryService.existsByEmail(request.getEmail())){
-			throw new ResourceNotFoundException("Email đã tồn tại. Vui lòng thử email khác");
+			throw new DuplicateResourceException("Email đã tồn tại. Vui lòng thử email khác");
 		}
 
 		User user = userCreateService.create(request);
@@ -59,7 +60,7 @@ public class AuthService implements IAuth{
 
 		boolean isPassword = encoder.matches(request.getPassword(), user.getPassword());
 		if(!isPassword){
-			throw new ResourceNotFoundException("Tên tài khoản hoặc mật khẩu không chính xác");
+			throw new InvalidCredentialsException();
 		}
 		String token = jwtService.generateToken(request.getPhone());
 		LoginResponse response = authMapper.toLoginResponse(token, user);
