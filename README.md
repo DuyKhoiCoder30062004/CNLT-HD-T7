@@ -431,7 +431,25 @@ flowchart TD
     N --> O[Trả dữ liệu người dùng]
 ```
 
-### 7.2. Luồng tạo đơn hàng
+### 7.2 Sơ đồ luồng mua sản phẩm
+
+```mermaid
+flowchart TD
+    A[Khách hàng truy cập hệ thống] --> B[Xem danh sách sản phẩm]
+    B --> C[Chọn sản phẩm và số lượng]
+    C --> D[Xem chi tiết và thêm vào giỏ hàng]
+    D --> E[Xác nhận giỏ hàng]
+    E --> F{Đã đăng nhập?}
+
+    F -- Chưa --> G[Đăng nhập hoặc đăng ký]
+    G --> H[Nhận JWT]
+    F -- Rồi --> I[Cung cấp thông tin nhận hàng]
+    H --> I
+
+    I --> J[Gửi POST /api/orders]
+```
+
+### 7.3. Luồng tạo đơn hàng
 
 ```mermaid
 flowchart TD
@@ -445,15 +463,27 @@ flowchart TD
     H --> I[Tính tổng tiền phía server]
     I --> J[Lưu Order]
     J --> K[Lưu OrderDetail]
-    K --> L[Cập nhật tồn kho nếu cần]
+    K --> L[Tiến hành thanh toán]
     L --> M{Tất cả thao tác thành công?}
     M -- Không --> N[Rollback transaction]
     M -- Có --> O[Commit transaction]
     O --> P[Trả 201 Created]
 ```
 
-Các sơ đồ thể hiện luồng nghiệp vụ dự kiến.
+### 7.4. Luồng thanh toán đơn
 
+```mermaid
+    A[Đã lưu Order và OrderDetail] --> B[Thực hiện thanh toán]
+
+    B --> C{Thanh toán thành công?}
+
+    C -- Có --> D[Cập nhật trạng thái thanh toán]
+    D --> E[Xác nhận đơn hàng và xử lý tồn kho]
+    E --> F[Trả thông tin đơn hàng cho Client]
+
+    C -- Không --> G[Thông báo kết quả cho Client]
+    G --> B
+```
 ---
 
 ## 8. Các nguyên tắc bảo đảm tính toàn vẹn dữ liệu
