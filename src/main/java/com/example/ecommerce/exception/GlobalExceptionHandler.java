@@ -53,10 +53,7 @@ public class GlobalExceptionHandler {
         Map<String, Object> response = new HashMap<>();
         response.put("status", 401);
         response.put("error", "Unauthorized");
-        response.put(
-            "message",
-            "Thông tin đăng nhập không hợp lệ"
-        );
+        response.put("message",  ex.getMessage());
 
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
     }

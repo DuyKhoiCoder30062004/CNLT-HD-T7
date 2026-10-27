@@ -12,6 +12,7 @@ import com.example.ecommerce.interfaces.user.IUserCreate;
 import com.example.ecommerce.interfaces.user.IUserQuery;
 import com.example.ecommerce.entities.User;
 import org.springframework.stereotype.Service;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -68,11 +69,20 @@ public class AuthService implements IAuth{
 	}
 
 	@Override
-	public LoginResponse me(String token){
-		String phone = SecurityContextHolder.getContext().getAuthentication().getName();
-	    User user = userQueryService.findByPhone(phone);
-		LoginResponse response = authMapper.toLoginResponse(token, user);
-		return response;
-	}
+	public LoginResponse me(String token) {
+	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
+	    if (authentication == null
+	            || !authentication.isAuthenticated()
+	            || authentication.getName() == null
+	            || authentication.getName().isBlank()) {
+	        throw new InvalidCredentialsException(
+	                "Thiếu JWT, token không hợp lệ hoặc hết hạn"
+	        );
+	    }
+
+	    String phone = authentication.getName();
+	    User user = userQueryService.findByPhone(phone);
+	    return authMapper.toLoginResponse(token, user);
+	}
 }

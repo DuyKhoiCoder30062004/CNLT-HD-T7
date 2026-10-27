@@ -249,7 +249,7 @@ Nếu sản phẩm đã được sử dụng trong đơn hàng, nên cân nhắc
 | POST | `/api/orders` | Authenticated | Tạo đơn hàng |
 | GET | `/api/orders` | Authenticated | Lấy danh sách đơn hàng được phép xem |
 | GET | `/api/orders/{id}` | Authenticated | Lấy chi tiết đơn hàng |
-| PUT | `/api/orders/update-status/{id}` | ADMIN hoặc STAFF được phân quyền | Cập nhật trạng thái đơn hàng |
+| PUT | `/api/orders/update-status/{id}` | ADMIN được phân quyền | Cập nhật trạng thái đơn hàng |
 
 ### 5.2. DTO
 
@@ -301,7 +301,7 @@ Tạo đơn hàng mới cho người dùng đã đăng nhập.
 
 | HTTP status | Trường hợp |
 |---|---|
-| 201 Created | Tạo đơn hàng thành công |
+| 200 OK | Tạo đơn hàng thành công |
 | 400 Bad Request | Dữ liệu đặt hàng không hợp lệ |
 | 401 Unauthorized | Chưa đăng nhập hoặc JWT không hợp lệ |
 | 404 Not Found | Không tìm thấy sản phẩm được đặt |
