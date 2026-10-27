@@ -12,7 +12,10 @@ target/
 .settings
 .springBeans
 .sts4-cache
-
+###out folder
+/out
+###class files
+*.class
 ### IntelliJ IDEA ###
 .idea
 *.iws
