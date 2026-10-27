@@ -473,6 +473,7 @@ flowchart TD
 ### 7.4. Luồng thanh toán đơn
 
 ```mermaid
+flowchart TD
     A[Đã lưu Order và OrderDetail] --> B[Thực hiện thanh toán]
 
     B --> C{Thanh toán thành công?}
