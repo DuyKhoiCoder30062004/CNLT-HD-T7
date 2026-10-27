@@ -14,27 +14,6 @@ INSERT INTO statuses (name, description) VALUES
 ('COMPLETED', 'Đơn hàng đã hoàn thành'),
 ('CANCELLED', 'Đơn hàng đã bị hủy');
 
-INSERT INTO provinces (name) VALUES
-('Thành phố Hồ Chí Minh'),
-('Thành phố Hà Nội');
-
-INSERT INTO wards (name, province_id) VALUES
-(
-    'Phường Bến Nghé',
-    (SELECT id FROM provinces
-     WHERE name = 'Thành phố Hồ Chí Minh')
-),
-(
-    'Phường Bến Thành',
-    (SELECT id FROM provinces
-     WHERE name = 'Thành phố Hồ Chí Minh')
-),
-(
-    'Phường Cửa Nam',
-    (SELECT id FROM provinces
-     WHERE name = 'Thành phố Hà Nội')
-);
-
 INSERT INTO receivers (fullname, phone, ward_id, created_at) VALUES
 (
     'Nguyễn Văn An',
