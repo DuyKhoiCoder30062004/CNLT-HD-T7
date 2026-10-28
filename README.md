@@ -67,7 +67,8 @@ Hệ thống Ecommerce cung cấp RESTful API phục vụ xác thực người d
 | HTTP status | Trường hợp |
 |---|---|
 | 400 Bad Request | Request thiếu trường bắt buộc hoặc dữ liệu không hợp lệ |
-| 401 Unauthorized | Số điện thoại không tồn tại hoặc mật khẩu sai |
+| 401 Unauthorized | Mật khẩu sai |
+| 404 Not Found | Số điện thoại không tồn tại |
 | 500 Internal Server Error | Lỗi hệ thống ngoài dự kiến |
 
 Không sử dụng hai thông báo khác nhau cho trường hợp tài khoản không tồn tại và mật khẩu sai, nhằm hạn chế việc dò tìm tài khoản hợp lệ.
@@ -771,7 +772,17 @@ POST /api/auth/login
 ```
 **Test endpoint bằng Postman**
 
-![Màn hình Postman](./imgs/auth/login_postman.png)
+* Trạng thái 200: Đăng nhập thành công
+![Màn hình Postman](./imgs/auth/login_200.png)
+
+* Trạng thái 400: Lỗi định dạng dữ liệu
+![Màn hình Postman](./imgs/auth/login_400.png)
+
+* Trạng thái 401: Lỗi mật khẩu sai
+![Màn hình Postman](./imgs/auth/login_401.png)
+
+* Trạng thái 404: Số điện thoại không tồn tại
+![Màn hình Postman](./imgs/auth/login_404.png)
 
 ---
 
@@ -819,7 +830,14 @@ POST /api/auth/register
 
 **Test endpoint bằng Postman**
 
-![Màn hình Postman](./imgs/auth/register_postman.png)
+* Trường hợp 200: Đăng ký thành công
+![Màn hình Postman](./imgs/auth/register_200.png)
+
+* Trường hợp 400: Lỗi định dạng dữ liệu
+![Màn hình Postman](./imgs/auth/register_400.png)
+
+* Trường hợp 409: Số điện thoại đã tồn tại
+![Màn hình Postman](./imgs/auth/register_409.png)
 
 ---
 
@@ -868,7 +886,14 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwOTg3NjU0MzIzIiwiaWF0IjoxN
 
 **Test endpoint bằng Postman**
 
-![Màn hình Postman](./imgs/auth/me_postman.png)
+* Trường hợp 200: Token chuẩn
+![Màn hình Postman](./imgs/auth/me_200.png)
+
+* Trường hợp 401: thiếu token
+![Màn hình Postman](./imgs/auth/me_required.png)
+
+* Trường hợp 401: Token không hợp lệ hoặc hết hạn
+![Màn hình Postman](./imgs/auth/me_wrong.png)
 
 
 ## Ý nghĩa token

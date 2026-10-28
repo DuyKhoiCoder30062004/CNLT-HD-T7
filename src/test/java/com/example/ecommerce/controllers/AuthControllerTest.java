@@ -3,14 +3,21 @@ package com.example.ecommerce.controllers;
 import com.example.ecommerce.dtos.auth.LoginRequest;
 import com.example.ecommerce.dtos.auth.LoginResponse;
 import com.example.ecommerce.dtos.auth.RegisterRequest;
+import com.example.ecommerce.config.SecurityConfig;
 import com.example.ecommerce.security.JwtService;
 import com.example.ecommerce.interfaces.auth.IAuth;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.context.annotation.Import;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
+import java.util.Collections;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -19,6 +26,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(AuthController.class)
+@Import(SecurityConfig.class)
 class AuthControllerTest {
 
     @Autowired
@@ -72,14 +80,24 @@ class AuthControllerTest {
     }
 
     @Test
-    void shouldGetCurrentUserSuccessfully() throws Exception{
-    	LoginResponse response = new LoginResponse();
-    	when(authService.me("abc123"))
-    		.thenReturn(response);
+    void shouldGetCurrentUserSuccessfully() throws Exception {
+        String dummyToken = "valid-dummy-token";
+        String phone = "0987654321";
 
-    	mockMvc.perform(
-    		get("/api/auth/me")
-    		.header("Authorization", "Bearer abc123")
-    	).andExpect(status().isOk());
+        when(jwtService.isValid(dummyToken)).thenReturn(true);
+        when(jwtService.extractPhone(dummyToken)).thenReturn(phone);
+
+        LoginResponse response = new LoginResponse();
+        when(authService.me(phone)).thenReturn(response);
+        UsernamePasswordAuthenticationToken mockAuth = new UsernamePasswordAuthenticationToken(
+            phone,
+            null,
+            Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"))
+        );
+        mockMvc.perform(
+            get("/api/auth/me")
+                .header("Authorization", "Bearer " + dummyToken)
+                .with(SecurityMockMvcRequestPostProcessors.authentication(mockAuth))
+        ).andExpect(status().isOk());
     }
 }
