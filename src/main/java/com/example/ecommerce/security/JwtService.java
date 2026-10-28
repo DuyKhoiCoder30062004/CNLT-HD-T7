@@ -14,9 +14,9 @@ public class JwtService {
 	@Value("${jwt.secret}")
 	private String SECRET_KEY;
 
-	public String generateToken(String username){
+	public String generateToken(String phone){
 		return Jwts.builder()
-				.subject(username)
+				.subject(phone)
 				.issuedAt(new Date())
 				.expiration( new Date(System.currentTimeMillis()+ 86400000)) //24h
 				.signWith(getKey())
