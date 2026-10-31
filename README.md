@@ -91,7 +91,6 @@ Dữ liệu PostgreSQL được giữ trong Docker volume. Chỉ dùng `docker c
 
 ---
 
-# 1. Tính năng: Authentication (Xác thực)
 # 1. Ecommerce REST API Documentation
 
 ## 1. Tổng quan
