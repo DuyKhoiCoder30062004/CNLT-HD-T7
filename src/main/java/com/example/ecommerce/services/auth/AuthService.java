@@ -1,6 +1,7 @@
 package com.example.ecommerce.services.auth;
 
-import com.example.ecommerce.exception.ResourceNotFoundException;
+import com.example.ecommerce.exception.DuplicateResourceException;
+import com.example.ecommerce.exception.InvalidCredentialsException;
 import com.example.ecommerce.mappers.AuthMapper;
 import com.example.ecommerce.security.JwtService;
 import com.example.ecommerce.dtos.auth.LoginRequest;
@@ -11,6 +12,7 @@ import com.example.ecommerce.interfaces.user.IUserCreate;
 import com.example.ecommerce.interfaces.user.IUserQuery;
 import com.example.ecommerce.entities.User;
 import org.springframework.stereotype.Service;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -37,11 +39,11 @@ public class AuthService implements IAuth{
 	public LoginResponse register(RegisterRequest request){
 
 		if(userQueryService.existsByUsername(request.getUsername())){
-			throw new ResourceNotFoundException("Tên tài khoản đã tồn tại. Vui lòng thử tên khác");
+			throw new DuplicateResourceException("Tên tài khoản đã tồn tại. Vui lòng thử tên khác");
 		}
 
 		if(userQueryService.existsByEmail(request.getEmail())){
-			throw new ResourceNotFoundException("Email đã tồn tại. Vui lòng thử email khác");
+			throw new DuplicateResourceException("Email đã tồn tại. Vui lòng thử email khác");
 		}
 
 		User user = userCreateService.create(request);
@@ -59,7 +61,7 @@ public class AuthService implements IAuth{
 
 		boolean isPassword = encoder.matches(request.getPassword(), user.getPassword());
 		if(!isPassword){
-			throw new ResourceNotFoundException("Tên tài khoản hoặc mật khẩu không chính xác");
+			throw new InvalidCredentialsException();
 		}
 		String token = jwtService.generateToken(request.getPhone());
 		LoginResponse response = authMapper.toLoginResponse(token, user);
@@ -67,11 +69,20 @@ public class AuthService implements IAuth{
 	}
 
 	@Override
-	public LoginResponse me(String token){
-		String phone = SecurityContextHolder.getContext().getAuthentication().getName();
-	    User user = userQueryService.findByPhone(phone);
-		LoginResponse response = authMapper.toLoginResponse(token, user);
-		return response;
-	}
+	public LoginResponse me(String token) {
+	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
+	    if (authentication == null
+	            || !authentication.isAuthenticated()
+	            || authentication.getName() == null
+	            || authentication.getName().isBlank()) {
+	        throw new InvalidCredentialsException(
+	                "Thiếu JWT, token không hợp lệ hoặc hết hạn"
+	        );
+	    }
+
+	    String phone = authentication.getName();
+	    User user = userQueryService.findByPhone(phone);
+	    return authMapper.toLoginResponse(token, user);
+	}
 }
