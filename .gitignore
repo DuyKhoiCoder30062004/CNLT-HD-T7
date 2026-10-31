@@ -33,4 +33,14 @@ build/
 ### VS Code ###
 .vscode/
 
-/src/main/resources/application.properties
+### OS-generated files ###
+.DS_Store
+Thumbs.db
+desktop.ini
+
+### Local environment and secrets ###
+.env
+.env.*
+!.env.example
+*.log
+/src/main/resources/application-local.properties

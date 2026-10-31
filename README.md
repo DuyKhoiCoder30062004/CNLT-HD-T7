@@ -1,3 +1,97 @@
+# Chạy dự án trên macOS, Linux và Windows
+
+## Yêu cầu
+
+- Java 17 trở lên.
+- Docker Desktop hoặc Docker Engine có Docker Compose.
+- Không cần cài Maven toàn cục vì dự án có Maven Wrapper.
+
+## Khởi động PostgreSQL
+
+Từ thư mục gốc của dự án:
+
+```bash
+docker compose up -d
+```
+
+Docker sẽ tạo PostgreSQL 17 tại `localhost:5432`, database `ecommerce`, đồng thời Flyway tự tạo bảng và dữ liệu mẫu khi ứng dụng khởi động.
+
+Nếu máy đã có PostgreSQL hoặc dịch vụ khác dùng cổng `5432`, sao chép `.env.example` thành `.env` và thay `POSTGRES_PORT`. Khi thay cổng, đặt thêm `SPRING_DATASOURCE_URL` tương ứng trước khi chạy ứng dụng.
+
+## Chạy ứng dụng
+
+macOS/Linux:
+
+```bash
+./mvnw spring-boot:run
+```
+
+Windows Command Prompt:
+
+```bat
+mvnw.cmd spring-boot:run
+```
+
+Windows PowerShell:
+
+```powershell
+.\mvnw.cmd spring-boot:run
+```
+
+API chạy tại `http://localhost:8080`. Cấu hình development mặc định đã nằm trong `src/main/resources/application.properties`, vì vậy thành viên mới không cần tạo tệp cấu hình riêng.
+
+## Chạy kiểm thử
+
+macOS/Linux:
+
+```bash
+./mvnw test
+```
+
+Windows:
+
+```bat
+mvnw.cmd test
+```
+
+## Cấu hình VNPay sandbox
+
+Ứng dụng vẫn khởi động bình thường khi chưa có VNPay credential. Chỉ endpoint tạo thanh toán VNPay yêu cầu hai biến môi trường sau:
+
+```text
+VNPAY_TMN_CODE
+VNPAY_HASH_SECRET
+```
+
+Không commit credential thật vào Git. Mỗi thành viên tự cấu hình trong IDE hoặc terminal. Có thể sao chép `.env.example` thành `.env` cho Docker Compose; lưu ý Spring Boot chạy trực tiếp bằng Maven không tự đọc `.env`.
+
+macOS/Linux:
+
+```bash
+export VNPAY_TMN_CODE='your-sandbox-code'
+export VNPAY_HASH_SECRET='your-sandbox-secret'
+./mvnw spring-boot:run
+```
+
+Windows PowerShell:
+
+```powershell
+$env:VNPAY_TMN_CODE='your-sandbox-code'
+$env:VNPAY_HASH_SECRET='your-sandbox-secret'
+.\mvnw.cmd spring-boot:run
+```
+
+## Dừng môi trường local
+
+```bash
+docker compose down
+```
+
+Dữ liệu PostgreSQL được giữ trong Docker volume. Chỉ dùng `docker compose down -v` khi chủ động muốn xóa toàn bộ dữ liệu local.
+
+---
+
+# 1. Tính năng: Authentication (Xác thực)
 # 1. Ecommerce REST API Documentation
 
 ## 1. Tổng quan

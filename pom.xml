@@ -20,7 +20,7 @@
     <description>E-commerce application</description>
 
     <properties>
-        <java.version>21</java.version>
+        <java.version>17</java.version>
         <lombok.version>1.18.42</lombok.version>
     </properties>
 
