@@ -1034,4 +1034,3 @@ Chuỗi trên chứa các thông tin cần thiết trong trường hợp 
 oKMuxiSDoyo4b7SteigYPWdmpGMmuxb0VvLND3Q3X2A
 ```
 Đây là phần khá quan trọng trong bảo mật để đảm bảo thông tin payload không bị thay đổi bởi người khác. Phần này lấy secret key từ tệp môi trường (env hoặc properties).
-
