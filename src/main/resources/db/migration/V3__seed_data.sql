@@ -18,7 +18,7 @@ INSERT INTO receivers (fullname, phone, ward_id, created_at) VALUES
 (
     'Nguyễn Văn An',
     '0901000001',
-    (SELECT id FROM wards WHERE name = 'Phường Bến Nghé'),
+    (SELECT id FROM wards WHERE name = 'Phường Ba Đình'),
     CURRENT_TIMESTAMP
 ),
 (

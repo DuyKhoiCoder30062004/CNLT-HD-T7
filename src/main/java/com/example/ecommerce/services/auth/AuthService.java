@@ -63,7 +63,7 @@ public class AuthService implements IAuth{
 		if(!isPassword){
 			throw new InvalidCredentialsException();
 		}
-		String token = jwtService.generateToken(request.getPhone());
+		String token = jwtService.generateToken(user);
 		LoginResponse response = authMapper.toLoginResponse(token, user);
 		return response;
 	}

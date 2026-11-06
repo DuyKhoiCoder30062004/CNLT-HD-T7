@@ -64,6 +64,19 @@ public class SecurityConfig {
                     "/api/auth/register"
                 ).permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/auth/me").authenticated()
+
+                // order
+                .requestMatchers(HttpMethod.GET, "/api/v1/orders").authenticated()
+                .requestMatchers(HttpMethod.GET, "/api/v1/orders/{id}").authenticated()
+                .requestMatchers(HttpMethod.POST, "/api/v1/orders").authenticated()
+                .requestMatchers(HttpMethod.PATCH, "/api/v1/orders/{id}/status").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/api/v1/orders/{id}").authenticated()
+
+                // payment
+                .requestMatchers(HttpMethod.POST, "/api/v1/payments/vnpay/create").authenticated()
+                .requestMatchers(HttpMethod.GET, "/api/v1/payments/vnpay/return").authenticated()
+                .requestMatchers(HttpMethod.GET, "/api/v1/payments/vnpay/ipn").authenticated()
+
                 .anyRequest().permitAll()
             )
             .addFilterBefore(

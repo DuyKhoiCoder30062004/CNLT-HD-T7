@@ -1,5 +1,6 @@
 package com.example.ecommerce.security;
 
+import com.example.ecommerce.entities.User;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import java.nio.charset.StandardCharsets;
@@ -14,9 +15,10 @@ public class JwtService {
 	@Value("${jwt.secret}")
 	private String SECRET_KEY;
 
-	public String generateToken(String phone){
+	public String generateToken(User user){
 		return Jwts.builder()
-				.subject(phone)
+				.subject(user.getPhone())
+				.claim("role", user.getRole().getName())
 				.issuedAt(new Date())
 				.expiration( new Date(System.currentTimeMillis()+ 86400000)) //24h
 				.signWith(getKey())
@@ -30,6 +32,15 @@ public class JwtService {
 				.parseSignedClaims(token)
 				.getPayload()
 				.getSubject();
+	}
+
+	public String extractRole(String token) {
+		return Jwts.parser()
+				.verifyWith(getKey())
+				.build()
+				.parseSignedClaims(token)
+				.getPayload()
+				.get("role", String.class);
 	}
 
 	public boolean isValid(String token){
