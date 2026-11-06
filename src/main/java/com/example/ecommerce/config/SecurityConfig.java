@@ -70,12 +70,19 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/api/v1/orders/{id}").authenticated()
                 .requestMatchers(HttpMethod.POST, "/api/v1/orders").authenticated()
                 .requestMatchers(HttpMethod.PATCH, "/api/v1/orders/{id}/status").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.DELETE, "/api/v1/orders/{id}").authenticated()
+                .requestMatchers(HttpMethod.DELETE, "/api/v1/orders/{id}").hasRole("ADMIN")
 
                 // payment
                 .requestMatchers(HttpMethod.POST, "/api/v1/payments/vnpay/create").authenticated()
                 .requestMatchers(HttpMethod.GET, "/api/v1/payments/vnpay/return").authenticated()
                 .requestMatchers(HttpMethod.GET, "/api/v1/payments/vnpay/ipn").authenticated()
+
+                //product
+                .requestMatchers(HttpMethod.GET, "/api/v1/products").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/v1/products/{id}").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/v1/products").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/api/v1/products/{id}").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/api/v1/products/{id}").hasRole("ADMIN")
 
                 .anyRequest().permitAll()
             )

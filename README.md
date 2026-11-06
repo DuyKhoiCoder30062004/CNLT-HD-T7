@@ -6,39 +6,25 @@
 - Docker Desktop hoặc Docker Engine có Docker Compose.
 - Không cần cài Maven toàn cục vì dự án có Maven Wrapper.
 
-## Khởi động PostgreSQL
+## Cấu Hình Biến Môi Trường (`.env`)
+Tạo một file tên là `.env` tại thư mục gốc của dự án tương tự `.env.example` (ngang hàng với `docker-compose.yml`) và điền các thông tin cấu hình bảo mật của bạn:
 
-Từ thư mục gốc của dự án:
+---
+
+## Khởi Chạy Ứng Dụng Với Docker Compose
+
+Mở Terminal/Command Prompt tại thư mục gốc của dự án và chạy lệnh sau:
 
 ```bash
-docker compose up -d
+docker compose up -d --build
 ```
 
-Docker sẽ tạo PostgreSQL 17 tại `localhost:5432`, database `ecommerce`, đồng thời Flyway tự tạo bảng và dữ liệu mẫu khi ứng dụng khởi động.
-
-Nếu máy đã có PostgreSQL hoặc dịch vụ khác dùng cổng `5432`, sao chép `.env.example` thành `.env` và thay `POSTGRES_PORT`. Khi thay cổng, đặt thêm `SPRING_DATASOURCE_URL` tương ứng trước khi chạy ứng dụng.
-
-## Chạy ứng dụng
-
-macOS/Linux:
+## Phát Triển Ở Môi Trường Local (Không dùng Docker)
+Tạo một file tên là `application.properties` tương tự `example.application.properties` (tại thư mục `src/main/resources/`) và điền các thông tin cấu hình bảo mật của bạn:
 
 ```bash
 ./mvnw spring-boot:run
 ```
-
-Windows Command Prompt:
-
-```bat
-mvnw.cmd spring-boot:run
-```
-
-Windows PowerShell:
-
-```powershell
-.\mvnw.cmd spring-boot:run
-```
-
-API chạy tại `http://localhost:8080`. Cấu hình development mặc định đã nằm trong `src/main/resources/application.properties`, vì vậy thành viên mới không cần tạo tệp cấu hình riêng.
 
 ## Chạy kiểm thử
 
