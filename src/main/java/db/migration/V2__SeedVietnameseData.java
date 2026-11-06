@@ -11,7 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 
 @Component
-public class V3__SeedVietnameseData extends BaseJavaMigration {
+public class V2__SeedVietnameseData extends BaseJavaMigration {
     @Override
     public void migrate(Context context) throws Exception {
         // 1. Tạo bảng tạm
