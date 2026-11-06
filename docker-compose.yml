@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  postgres-db:
+    image: postgres:17-alpine
+    container_name: ecommerce-postgres
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    environment:
+      POSTGRES_DB: "${DB_NAME_LOCAL:-ecommerce}"
+      POSTGRES_USER: "${DB_USERNAME_LOCAL:-ecommerce}"
+      POSTGRES_PASSWORD: "${DB_PASSWORD_LOCAL:-ecommerce_local}"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - ecommerce_postgres_data:/var/lib/postgresql/data
+
+  # 2. Ứng dụng Spring Boot
+  spring-app-ccnlthd:
+    build: .
+    container_name: ecommerce-api
+    ports:
+      - "${APP_PORT:-8080}:8080"
+    depends_on:
+      postgres-db:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres-db:5432/${DB_NAME_LOCAL:-ecommerce}"
+      DB_USERNAME_LOCAL: "${DB_USERNAME_LOCAL:-ecommerce}"
+      DB_PASSWORD_LOCAL: "${DB_PASSWORD_LOCAL:-ecommerce_local}"
+      
+      JWT_SECRET_KEY: "${JWT_SECRET_KEY:-local-development-jwt-secret-key-change-before-deploying-1234567890}"
+      TRANSACTION_LOG_LEVEL: "${TRANSACTION_LOG_LEVEL:-info}"
+      JPA_TRANSACTION_LOG_LEVEL: "${JPA_TRANSACTION_LOG_LEVEL:-info}"
+      
+      VNPAY_PAY_URL: "${VNPAY_PAY_URL:-https://sandbox.vnpayment.vn/paymentv2/vpcpay.html}"
+      VNPAY_RETURN_URL: "${VNPAY_RETURN_URL:-http://localhost:8080/api/v1/payments/vnpay/return}"
+      VNPAY_TMN_CODE: "${VNPAY_TMN_CODE:-}"
+      VNPAY_HASH_SECRET: "${VNPAY_HASH_SECRET:-}"
+
+volumes:
+  ecommerce_postgres_data:
